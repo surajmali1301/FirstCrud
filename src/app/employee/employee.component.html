@@ -1,0 +1,61 @@
+<div class="container">
+  <h3>Employee List</h3>
+  <div class="row">
+    <div class="col-6">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>EmpId</th>
+            <th>Employee Name</th>
+            <th>Salary</th>
+            <th>City</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(e of employeeList; track e.id){
+          <tr>
+            <td>{{e.id}}</td>
+            <td>{{e.name}}</td>
+            <td>{{e.salary}}</td>
+            <td>{{e.city}}</td>
+            <td>
+              <button type="button" class="btn btn-outline-success" (click)="editEmployee(e)">Edit</button>&nbsp;&nbsp;
+              <button type="button" class="btn btn-outline-danger" (click)="deleteEmployee(e.id)">Delete</button>
+
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <div class="col-6">
+      <form (ngSubmit)="saveEmployee()">
+      <!-- <form> -->
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" [(ngModel)]="employee.id" name="id" id="id" placeholder="Emp Id">
+          <label for="id">Emp Id</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" [(ngModel)]="employee.name" name="name" id="name"
+            placeholder="Emp Name">
+          <label for="id">Emp Name</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" [(ngModel)]="employee.salary" name="salary" id="salary"
+            placeholder="Emp Salary">
+          <label for="id">Salary</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" [(ngModel)]="employee.city" name="city" id="city"
+            placeholder="Emp City">
+          <label for="id">City</label>
+        </div>
+        <div class="form-floating mb-3">
+          <button type="submit" class="btn btn-outline-primary" *ngIf="isUpdateBtn">Update</button> &nbsp;&nbsp;
+          <button type="submit" class="btn btn-outline-primary" *ngIf="!isUpdateBtn">Add</button> &nbsp;&nbsp;
+          <button type="button" class="btn btn-outline-primary">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>

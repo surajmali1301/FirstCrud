@@ -1,0 +1,13 @@
+<form (ngSubmit)="onSubmit()">
+  <label for="name">Name:</label>
+  <input type="text" [(ngModel)]="registerForm.name" required>
+  <label for="email">Email:</label>
+  <input type="email" [(ngModel)]="registerForm.email" required> <label for="password">Password:</label>
+  <input type="password" [(ngModel)]="registerForm.password" required minlength="6">
+  <label for="confirmPassword">Confirm Password:</label>
+  <input type="password" [(ngModel)]="registerForm.confirmPassword" (input)="checkPasswordMatch()" required>
+  <div *ngIf="!passwordsMatch">
+    <small class="error">Passwords do not match.</small>
+  </div>
+  <button type="submit" [disabled]="!passwordsMatch">Register</button>
+</form>

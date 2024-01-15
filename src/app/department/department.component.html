@@ -1,0 +1,45 @@
+<div class="container">
+  <h3>Department List</h3>
+  <div class="row">
+    <div class="col-6">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>DeptId</th>
+            <th>DepartmentName</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(d of departmentList; track d.id){
+          <tr>
+            <td>{{d.id}}</td>
+            <td>{{d.name}}</td>
+            <td>
+              <button type="button" class="btn btn-outline-success">Edit</button>&nbsp;&nbsp;
+              <button type="button" class="btn btn-outline-danger">Delete</button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <div class="col-6">
+      <form (ngSubmit)="saveDepartment()">
+        <div class="form-floating mb-3">
+          <input type="number" [(ngModel)]="department.id" class="form-control" name="id" id="id" placeholder="Emp Id">
+          <label for="id">Department Id</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" [(ngModel)]="department.name" class="form-control" name="name" id="name"
+            placeholder="Department name">
+          <label for="id">Department Name</label>
+        </div>
+        <div class="form-floating mb-3">
+          <button type="submit" class="btn btn-outline-primary" *ngIf="isUpdateBtn">Update</button> &nbsp;&nbsp;
+          <button type="submit" class="btn btn-outline-primary" *ngIf="!isUpdateBtn">Add</button> &nbsp;&nbsp;
+          <button type="button" class="btn btn-outline-primary">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
