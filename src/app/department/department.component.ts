@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Department } from './departmentDTO';
 import { DepartmentService } from './department.service';
+import { Department } from './departmentDTO';
 
 @Component({
   selector: 'app-department',
@@ -12,39 +12,42 @@ import { DepartmentService } from './department.service';
   styleUrl: './department.component.css',
 })
 export class DepartmentComponent implements OnInit {
-  DepartmentService: DepartmentService = inject(DepartmentService);
+  departmentService: DepartmentService = inject(DepartmentService);
   departmentList: Department[] = [];
-  isUpdateBtn: boolean = false;
+
   ngOnInit(): void {
-    this.getDepartment;
+    this.getDepartments();
   }
-  getDepartment() {
-    this.departmentList = this.DepartmentService.getDepartment();
+
+  getDepartments() {
+    this.departmentList = this.departmentService.getAllDepartments();
   }
+
   department: Department = {};
 
   saveDepartment() {
-    if (!this.isUpdateBtn) {
-      this.DepartmentService.addDepartment(this.department);
+    if (!this.isUpdatebtn) {
+      this.departmentService.addDepartment(this.department);
     } else {
-      this.DepartmentService.updateDepartment(this.department);
-      this.department;
+      this.departmentService.updateDepartment(this.department);
     }
-    this.getDepartment();
+    this.getDepartments();
     this.department = {};
-    this.isUpdateBtn = false;
+    this.isUpdatebtn = false;
   }
 
+  //edit the data
+  isUpdatebtn: boolean = false;
   editDepartment(dept: Department) {
-    this.isUpdateBtn = true;
+    this.isUpdatebtn = true;
     this.department = dept;
   }
 
   deleteDepartment(id: number | undefined) {
-    let resp = confirm('Do you want to delete id ' + id + '?');
-    if (resp == true) {
-      this.DepartmentService.deleteDepartment(id);
-      this.getDepartment();
+    let response = confirm('Do you want to delete id ' + id + ' ?');
+    if (response == true) {
+      this.departmentService.deleteDepartment(id);
+      this.getDepartments();
     }
   }
 }

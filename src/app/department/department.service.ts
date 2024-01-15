@@ -1,41 +1,48 @@
 import { Injectable } from '@angular/core';
 import { Department } from './departmentDTO';
+import { debounceTime } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DepartmentService {
   departmentList: Department[] = [];
+
+  private id: number = 200;
+
   constructor() {
-    this.departmentList.push({
-      id: 101,
-      name: 'HR',
-    });
+    this.departmentList.push({ id: 200, name: 'Production' });
   }
-  public getDepartments() {
-    // Replace this with your actual department list retrieval logic
-    return ['HR', 'IT', 'Finance', 'Marketing'];
+
+  generateDepartmentId(): number {
+    this.id++;
+    return this.id;
   }
-  public addDepartment(dept: Department): void {
-    this.departmentList.push({
-      id: dept.id,
-      name: dept.name,
-    });
-  }
-  public getDepartment(): Department[] {
+
+  public getAllDepartments(): Department[] {
     return this.departmentList;
   }
+
+  public addDepartment(department: Department): void {
+    department.id = this.generateDepartmentId();
+    this.departmentList.push({ id: department.id, name: department.name });
+  }
+
   public updateDepartment(dept: Department): void {
     for (let i = 0; i < this.departmentList.length; i++) {
-      if (this.departmentList[i] === dept.id) {
+      if (this.departmentList[i].id === dept.id) {
+        // ===to check whether value + data both are same
         this.departmentList[i].name = dept.name;
+        break;
       }
     }
   }
+
   public deleteDepartment(id: number | undefined) {
     let i = 0;
     for (; i < this.departmentList.length; i++) {
       if (this.departmentList[i].id === id) {
+        // === to check whether value + data both are same
         break;
       }
     }
